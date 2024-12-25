@@ -1,12 +1,10 @@
-
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from redis_om import get_redis_connection
-from dotenv import load_dotenv
-import os
+from fastapi.middleware.cors import CORSMiddleware 
+from models import Product 
+ 
 
-load_dotenv()
 app=FastAPI() 
+
 
 origins = ["http://localhost:3000"]
 app.add_middleware(
@@ -17,19 +15,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def read_root():
     return {"My":"Store"}
 
-redis=get_redis_connection(
-    host=os.getenv("REDIS_ENDPOINT"),
-    port=os.getenv("REDIS_PORT"),
-    password=os.getenv("REDIS_PASSWORD"),
-    decode_responses=True
-)
- 
+@app.post("/products")
+def create_product(product:Product):
+    return product.save()
 
 
- 
+
+
 
 
