@@ -22,14 +22,18 @@ while True:
         if result:
             for res in result:
                 obj=res[1][0][1]
-                product=Product.get(obj["product_id"])
-                product.quantity-=int(obj["quantity"]) 
+                try:
+                    product=Product.get(obj["product_id"])
+                    
+                    if product.quantity<int(obj["quantity"]): 
+                        raise Exception("Not enough stock")
+                    else:
+                        product.quantity-=int(obj["quantity"]) 
 
-                if product.quantity<0:
-                    product.quantity=0
-                
-                product.save()
-                print(product.dict())
+                    product.save()
+                    print(product.dict())
+                except Exception as e:
+                    redis.xadd(name="refund-order",fields=obj)
 
     except Exception as e:
         print(str(e))
