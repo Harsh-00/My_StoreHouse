@@ -9,7 +9,7 @@ load_dotenv()
 app=FastAPI() 
 
 
-origins = ["http://localhost:3000"]
+origins = [f'{os.getenv("FRONT_URL")}']
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -21,7 +21,7 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"My":"Store"}
+    return {"My":"Warehouse"}
 
 
 @app.post("/product")
@@ -40,6 +40,12 @@ def detailed_product(pk:str):
 @app.get("/product/{pk}")
 def get_product(pk:str):
     return Product.get(pk)
+
+@app.put("/product/{pk}")
+def update_product(pk:str, product:Product):
+    Product.delete(pk)
+    product.save()
+
 
 
 @app.delete("/product/{pk}")
