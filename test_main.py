@@ -13,6 +13,10 @@ def test_create_product():
     assert response.status_code == 200
     assert response.json()["name"] == "Test Product"
 
+    # delete the test entry
+    delete_response=client.delete(f"/product/{response.json()['pk']}")
+    assert delete_response.status_code == 200
+
 def test_get_all_products():
     response = client.get("/product/all")
     assert response.status_code == 200
@@ -29,6 +33,10 @@ def test_get_product():
     assert response.status_code == 200
     assert response.json()["name"] == "Test Product get"
 
+    # delete the test entry
+    delete_response=client.delete(f"/product/{product_id}")
+    assert delete_response.status_code == 200
+
 def test_update_product():
     # Create a product
     product_data = {"name": "Test Product update", "price": 100.0, "quantity": 10}
@@ -43,6 +51,11 @@ def test_update_product():
     # Verify the update
     get_response = client.get(f"/product/{product_id}")
     assert get_response.json()["name"] == "Updated Product"
+
+    # delete the test entry
+    delete_response=client.delete(f"/product/{product_id}")
+    assert delete_response.status_code == 200
+
 
 def test_delete_product():
     # Create a product
