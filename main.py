@@ -14,7 +14,7 @@ load_dotenv()
 app=FastAPI() 
 
 
-origins = [f'{os.getenv("FRONT_URL_1")}', f'{os.getenv("FRONT_URL_2")}']
+origins = [f'{os.getenv("FRONT_URL")}']
 # origins = ["*"]
 app.add_middleware(
     CORSMiddleware,

@@ -6,10 +6,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
 
 # Define environment variables
-ENV REDIS_ENDPOINT = "redis-19682.c264.ap-south-1-1.ec2.redns.redis-cloud.com"
-ENV REDIS_PORT = "19682"
-ENV REDIS_PASSWORD = "jxYGVMOv0eQoDhrobmJL178gSFSMnFQ6"
-ENV FRONT_URL = "https://general-inventory.vercel.app"
+ENV REDIS_ENDPOINT="redis-19682.c264.ap-south-1-1.ec2.redns.redis-cloud.com"
+ENV REDIS_PORT="19682"
+ENV REDIS_PASSWORD="jxYGVMOv0eQoDhrobmJL178gSFSMnFQ6"
+ENV FRONT_URL="https://general-inventory.vercel.app"
 
 # Use a process manager to run multiple processes
 RUN apt-get update && apt-get install -y --no-install-recommends supervisor && \
