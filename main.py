@@ -14,7 +14,7 @@ load_dotenv()
 app=FastAPI() 
 
 
-origins = [f'{os.getenv("FRONT_URL")}']
+origins = [f'{os.getenv("FRONT_URL")}',"http://localhost:5173","http://localhost:8001"]
 # origins = ["*"]
 app.add_middleware(
     CORSMiddleware,
